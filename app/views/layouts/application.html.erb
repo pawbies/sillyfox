@@ -44,11 +44,11 @@
             <li class="my-2"><%= link_to 'Homepage', root_path %></li>
             <li class="my-2"><%= link_to 'Homepage', root_path %></li>
             <li class="my-2"><%= link_to 'Homepage', root_path %></li>
-            <% if true %>
-              <li class="my-2"><%= link_to 'Profile', root_path %></li>
-              <li class="my-2"><%= button_to "Logout", root_path %></li>
+            <% if authenticated? %>
+              <li class="my-2"><%= link_to "Profile (logged in as #{Current.user.username})", root_path %></li>
+              <li class="my-2"><%= button_to "Logout", session_path, method: :delete %></li>
             <% else %>
-              <li class="my-2"><%= link_to 'Login', root_path %></li>
+              <li class="my-2"><%= link_to 'Login', new_session_path %></li>
               <li class="my-2"><%= link_to 'Register', root_path %></li>
             <% end %>
           </ul>
@@ -61,17 +61,21 @@
           <li class="mx-2"><%= link_to "Homepage", root_path %></li>
         </ul>
         <div data-controller="header--profile">
-          <img data-action="click->header--profile#toggle" class="cursor-pointer h-20 aspect-square rounded-full" src="https://i.pinimg.com/originals/68/27/a2/6827a260715213a689b74a3d1879a4fb.jpg" alt="Profile picture">
+          <% if authenticated? %>
+            <img data-action="click->header--profile#toggle" class="cursor-pointer h-20 aspect-square rounded-full border-black border-1" src="https://i.pinimg.com/originals/68/27/a2/6827a260715213a689b74a3d1879a4fb.jpg" alt="Profile picture">
+          <% else %>
+            <%= image_tag "unauthenticated.jpg", class: "cursor-pointer h-20 aspect-square rounded-full border-black border-1", data: { action: "click->header--profile#toggle" }, alt: "Profile picture" %>
+          <% end %>
           <div data-header--profile-target="profilearea" class="hidden bg-white border-black border-2 absolute w-42 right-2 top-28 rounded-2xl px-2 py-1">
-            <% if true %>
-              <p class="text-2xl text-center mb-2">Anime Boy</p>
+            <% if authenticated? %>
+              <p class="text-2xl text-center mb-2"><%= Current.user.username %></p>
               <div class="flex flex-col">
                 <%= link_to "Profile", root_path, class: "text-xl" %>
-                <%= button_to "Logout", root_path, method: :get, class: "text-xl cursor-pointer" %>
+                <%= button_to "Logout", session_path, method: :delete, class: "text-xl cursor-pointer" %>
               </div>
             <% else %>
               <div class="flex flex-col">
-                <%= link_to "Login", root_path, class: "text-xl" %>
+                <%= link_to "Login", new_session_path, class: "text-xl" %>
                 <%= link_to "Register", root_path, class: "text-xl" %>
               </div>
             <% end %>
