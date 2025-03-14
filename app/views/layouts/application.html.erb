@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Sillyfox" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="w-screen font-['Jua']">
+
+    <header class="w-full bg-[#3F3F3F] h-28 md:h-32 flex items-center justify-between px-5">
+      <img src="/icon.svg" alt="Logo" class="w-24 md:w-28">
+
+      <div data-controller="header--mobile" class="md:hidden">
+        <button data-action="header--mobile#toggle" class="flex flex-col justify-around items-center w-14 aspect-square">
+          <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+          <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+          <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+        </button>
+        <nav data-header--mobile-target="navarea" class="hidden bg-[#3F3F3F] absolute left-0 top-28 w-full">
+          <div class="w-full h-3 bg-[#393939]"></div>
+          <ul class="text-white px-5 py-5 text-2xl">
+            <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+            <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+            <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+            <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+            <% if true %>
+              <li class="my-2"><%= link_to 'Profile', root_path %></li>
+              <li class="my-2"><%= button_to "Logout", root_path %></li>
+            <% else %>
+              <li class="my-2"><%= link_to 'Login', root_path %></li>
+              <li class="my-2"><%= link_to 'Register', root_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="hidden md:flex items-center">
+        <ul class="mr-5 flex text-white text-xl">
+          <li class="mx-2"><%= link_to "Homepage", root_path %></li>
+          <li class="mx-2"><%= link_to "Homepage", root_path %></li>
+        </ul>
+        <div data-controller="header--profile">
+          <img data-action="click->header--profile#toggle" class="cursor-pointer h-20 aspect-square rounded-full" src="https://i.pinimg.com/originals/68/27/a2/6827a260715213a689b74a3d1879a4fb.jpg" alt="Profile picture">
+          <div data-header--profile-target="profilearea" class="hidden bg-white border-black border-2 absolute w-42 right-2 top-28 rounded-2xl px-2 py-1">
+            <% if true %>
+              <p class="text-2xl text-center mb-2">Anime Boy</p>
+              <div class="flex flex-col">
+                <%= link_to "Profile", root_path, class: "text-xl" %>
+                <%= button_to "Logout", root_path, method: :get, class: "text-xl cursor-pointer" %>
+              </div>
+            <% else %>
+              <div class="flex flex-col">
+                <%= link_to "Login", root_path, class: "text-xl" %>
+                <%= link_to "Register", root_path, class: "text-xl" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <main class="container mx-auto mt-14 px-5 flex">
+      <%= yield %>
+    </main>
+  </body>
+</html>
