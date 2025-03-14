@@ -1,0 +1,21 @@
+<div class="absolute right-4 top-28 md:top-36 z-50">
+    <% if notice %>
+        <div data-controller="flash" data-flash-target="notification" class="bg-[#3F3F3F] w-56 max-w-56 md:max-w-72 rounded px-2 py-1 my-1">
+            <div class="flex justify-between items-center">
+                <h5 class="text-white text-xl">Notification</h5>
+                <button data-action="flash#toggle" class="text-white text-xl">x</button>
+            </div>
+            <p class="my-2 text-white overflow-clip"><%= notice %></p>
+        </div>
+    <% end %>
+
+    <% if alert %>
+        <div data-controller="flash" data-flash-target="notification" class="bg-[#3F3F3F] w-56 max-w-56 md:max-w-72 rounded px-2 py-1 my-1">
+            <div class="flex justify-between items-center">
+                <h5 class="text-white text-xl">Alert</h5>
+                <button data-action="flash#toggle" class="text-white text-xl">x</button>
+            </div>
+            <p class="my-2 text-white overflow-clip"><%= alert %></p>
+        </div>
+    <% end %>
+</div>

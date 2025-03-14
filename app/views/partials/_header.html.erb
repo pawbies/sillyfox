@@ -1,0 +1,51 @@
+<header class="w-full bg-[#3F3F3F] h-28 md:h-32 flex items-center justify-between px-5">
+    <img src="/icon.svg" alt="Logo" class="w-24 md:w-28">
+
+    <div data-controller="header--mobile" class="md:hidden">
+    <button data-action="header--mobile#toggle" class="flex flex-col justify-around items-center w-14 aspect-square">
+        <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+        <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+        <div class="w-full h-2 bg-[#D9D9D9] rounded-2xl"></div>
+    </button>
+    <nav data-header--mobile-target="navarea" class="hidden bg-[#3F3F3F] absolute left-0 top-28 w-full">
+        <div class="w-full h-3 bg-[#393939]"></div>
+        <ul class="text-white px-5 py-5 text-2xl">
+        <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+        <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+        <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+        <li class="my-2"><%= link_to 'Homepage', root_path %></li>
+        <% if authenticated? %>
+            <li class="my-2"><%= link_to "Profile (logged in as #{Current.user.username})", Current.user %></li>
+            <li class="my-2"><%= button_to "Logout", session_path, method: :delete %></li>
+        <% else %>
+            <li class="my-2"><%= link_to 'Login', new_session_path %></li>
+            <li class="my-2"><%= link_to 'Register', root_path %></li>
+        <% end %>
+        </ul>
+    </nav>
+    </div>
+
+    <div class="hidden md:flex items-center">
+    <ul class="mr-5 flex text-white text-xl">
+        <li class="mx-2"><%= link_to "Homepage", root_path %></li>
+        <li class="mx-2"><%= link_to "Homepage", root_path %></li>
+    </ul>
+    <div data-controller="header--profile">
+        <%= image_tag authenticated? ? "pfp.jpg" : "unauthenticated.jpg", class: "cursor-pointer h-20 aspect-square rounded-full border-black border-1", data: { action: "click->header--profile#toggle" }, alt: "Profile picture" %>
+        <div data-header--profile-target="profilearea" class="hidden bg-white border-black border-2 absolute w-42 right-2 top-28 rounded-2xl px-2 py-1">
+        <% if authenticated? %>
+            <p class="text-2xl text-center mb-2"><%= Current.user.username %></p>
+            <div class="flex flex-col">
+            <%= link_to "Profile", Current.user, class: "text-xl" %>
+            <%= button_to "Logout", session_path, method: :delete, class: "text-xl cursor-pointer" %>
+            </div>
+        <% else %>
+            <div class="flex flex-col">
+            <%= link_to "Login", new_session_path, class: "text-xl" %>
+            <%= link_to "Register", root_path, class: "text-xl" %>
+            </div>
+        <% end %>
+        </div>
+    </div>
+    </div>
+</header>
