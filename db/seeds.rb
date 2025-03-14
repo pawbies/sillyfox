@@ -14,5 +14,6 @@ User.create(
   email_address: "alex.fuchs970@gmail.com",
   username: "Pawbies",
   password: "alex",
-  password_confirmation: "alex"
+  password_confirmation: "alex",
+  role: :admin
 )

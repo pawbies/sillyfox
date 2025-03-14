@@ -1,0 +1,32 @@
+<div class="w-full flex flex-col items-center">
+    <h2 class="text-center text-3xl">Users</h2>
+
+    <div class="mt-8 bg-gray-200 h-24 w-100 px-4 py-1 rounded-3xl">
+        <span class="text-xl">Search for users</span>
+
+        <%= form_with url: users_path, method: :get, data: { turbo_frame: "users" }, class: "mt-5 flex items-center justify-around" do |form| %>
+            <%= form.text_field :query, placeholder: "Username....", class: "bg-gray-300 w-full h-[2em] rounded-4xl px-2" %>
+            <button type="submit">
+                <%= image_tag "icons/search.svg", class: "h-[1.5em] mx-5" %>
+            </button>
+        <% end %>
+    </div>
+
+    <%= turbo_frame_tag "users", class: "w-full" do %>
+        <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 w-full">
+            <% @users.each do |user| %>
+                <div class="bg-[#F3F3F3] border-black border-1 rounded-2xl w-3/4 h-52 my-7 mx-auto flex items-center justify-between">
+                    <div class="px-5 py-4 max-w-1/2 overflow-visible flex flex-col">
+                        <h3 class="text-3xl"><%= user.username %></h3>
+                        <span class="text-gray-500"><%= user.email_address %></span>
+
+                        <%= link_to "View", user, target: "_top", class: "mt-12 w-34 h-14 bg-[#0088DD] hover:bg-[#0088FF] rounded-2xl text-2xl text-white flex justify-center items-center" %>
+                    </div>
+                    <div class="max-w-1/2 flex flex-col h-full justify-end md:justify-center py-2 px-2">
+                        <%= image_tag "pfp.jpg", class: "h-1/2 md:h-3/4 align-bottom aspect-square rounded-full border-black border-1" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+</div>

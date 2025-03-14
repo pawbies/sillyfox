@@ -4,17 +4,30 @@ module Authentication
   included do
     before_action :require_authentication
     helper_method :authenticated?
+    helper_method :administrator?
   end
 
   class_methods do
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
     end
+
+    def disallow_user_access(**options)
+      before_action :require_administrator, **options
+    end
   end
 
   private
     def authenticated?
       resume_session
+    end
+
+    def administrator?
+      authenticated? && Current.user.admin?
+    end
+
+    def require_administrator
+      redirect_to root_path, alert: "Not authorized to view this content" unless resume_session && Current.user.admin?
     end
 
     def require_authentication

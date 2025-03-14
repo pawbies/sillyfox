@@ -1,4 +1,15 @@
-<div>
-  <h1 class="font-bold text-4xl">Home#index</h1>
-  <p>Find me in app/views/home/index.html.erb</p>
+<div class="w-full flex flex-col items-center">
+  <h1 class="text-4xl text-center">Welcome to Sillyfox</h1>
+
+  <%= form_with url: root_path, method: :get, class: "mt-12 bg-gray-300 w-100 h-28 px-2 pt-2 pb-5 rounded-2xl flex flex-col justify-between" do |form| %>
+    <span class="text-xl">Search</span>
+    
+    <div class="flex items-center px-5">
+      <%= form.text_field :query, placeholder: "Beta-alanine...", class: "bg-white rounded-2xl px-2 h-[2em] w-full" %>
+      <button type="submit" class="ml-4">
+        <%= image_tag "icons/search.svg", class: "h-[1.5em]" %>
+      </button>
+    </div>
+  <% end %>
+
 </div>
