@@ -1,0 +1,40 @@
+<div class="w-full flex flex-col items-center">
+    <h2 class="text-center text-3xl">Ingredients</h2>
+
+    <div class="mt-8 bg-gray-200 h-24 w-100 px-4 py-1 rounded-3xl">
+        <span class="text-xl">Search for ingredients</span>
+
+        <%= form_with url: ingredients_path, method: :get, data: { turbo_frame: "ingredients" }, class: "mt-5 flex items-center justify-around" do |form| %>
+            <%= form.text_field :query, placeholder: "Name....", class: "bg-gray-300 w-full h-[2em] rounded-4xl px-2" %>
+            <button type="submit">
+                <%= image_tag "icons/search.svg", class: "h-[1.5em] mx-5" %>
+            </button>
+        <% end %>
+    </div>
+
+    <%= turbo_frame_tag "ingredients", class: "mt-12 w-full" do %>
+        <div class="relative flex flex-col w-full h-full text-gray-700 z-30">
+          <table class="w-full text-left table-auto min-w-max">
+            <thead>
+              <tr>
+                <th class="p-4 border-b text-gray-600 text-sm">Name</th>
+                <th class="p-4 border-b text-gray-600 text-sm">Dosage</th>
+                <th class="p-4 border-b text-gray-600 text-sm">Rating</th>
+                <th class="p-4 border-b text-gray-600 text-sm">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ingredients.each do |ingredient| %>
+                <tr>
+                  <td class="p-4 border-b"><%= ingredient.name %></td>
+                  <td class="p-4 border-b"><%= ingredient.dosage %></td>
+                  <td class="p-4 border-b"><%= ingredient.rating.humanize %></td>
+                  <td class="p-4 border-b"><%= link_to "View", ingredient, target: "_top" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+</div>

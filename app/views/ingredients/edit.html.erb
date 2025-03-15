@@ -1,0 +1,29 @@
+<div class="w-full flex flex-col items-center">
+    <h2 class="text-center text-3xl">Edit <%= @ingredient.name %></h2>
+
+    <%= form_with model: @ingredient, class: "w-full flex flex-col items-center" do |form| %>
+
+        <% if @ingredient.errors.any? %>
+            <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 max-w-100">
+                <h2><%= @ingredient.errors.count %> prevented updating this ingredient:</h2>
+
+                <ul>
+                    <% @ingredient.errors.each do |error| %>
+                    <li><%= error.full_message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <div class="mt-20 w-full md:w-1/2 lg:w-1/3 flex flex-col items-center">
+            <%= form.text_field :name, placeholder: "Name", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+            <%= form.text_area :description, placeholder: "Description", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+            <%= form.text_field :dosage,  placeholder: "Dosage", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+            <%=  form.select :rating, Ingredient.ratings.keys.map { |r| [r.humanize, r] } %>
+        </div>
+
+        <div class="w-full mt-24 flex items-center justify-around">
+            <%= form.submit "Update", class: "w-34 h-14 bg-[#0088DD] hover:bg-[#0088FF] rounded-2xl text-2xl text-white flex justify-center items-center" %>
+        </div>
+    <% end %>
+</div>
