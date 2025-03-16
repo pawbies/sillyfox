@@ -1,5 +1,6 @@
 class IngredientsController < ApplicationController
-  disallow_user_access except: %i[ show ]
+  allow_unauthenticated_access only: %i[ index show ]
+  disallow_user_access except: %i[ index show ]
   before_action :set_ingredient, only: %i[ show edit update destroy ]
 
   # GET /ingredients or /ingredients.json

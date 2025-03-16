@@ -14,7 +14,7 @@
 
     <%= turbo_frame_tag "ingredients", class: "mt-12 w-full" do %>
         <div class="relative flex flex-col w-full h-full text-gray-700 z-30">
-          <table class="w-full text-left table-auto min-w-max">
+          <table class="max-w-full text-left table-auto">
             <thead>
               <tr>
                 <th class="p-4 border-b text-gray-600 text-sm">Name</th>
@@ -27,10 +27,10 @@
             <tbody>
               <% @ingredients.each do |ingredient| %>
                 <tr>
-                  <td class="p-4 border-b"><%= ingredient.name %></td>
-                  <td class="p-4 border-b"><%= ingredient.dosage %></td>
-                  <td class="p-4 border-b"><%= ingredient.rating.humanize %></td>
-                  <td class="p-4 border-b"><%= link_to "View", ingredient, target: "_top" %></td>
+                  <td class="p-4 border-b w-2/5 max-w-xs whitespace-normal break-words"><%= ingredient.name %></td>
+                  <td class="p-4 border-b w-1/5"><%= ingredient.dosage %></td>
+                  <td class="p-4 border-b w-1/5"><%= ingredient.rating.humanize %></td>
+                  <td class="p-4 border-b w-1/5"><%= link_to "View", ingredient, target: "_top" %></td>
                 </tr>
               <% end %>
             </tbody>
