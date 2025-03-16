@@ -1,5 +1,11 @@
 <div class="w-full flex flex-col items-center">
-    <h2 class="text-center text-3xl">Ingredients</h2>
+
+    <div class="flex w-full justify-center items-center">
+      <h2 class="text-center text-3xl">Ingredients</h2>
+      <% if administrator? %>
+        <%= link_to "Add", new_ingredient_path, class: "ml-5 w-20 h-10 bg-[#0088DD] hover:bg-[#0088FF] rounded-2xl text-2xl text-white flex justify-center items-center" %>
+      <% end %>
+    </div>
 
     <div class="mt-8 bg-gray-200 h-24 w-100 px-4 py-1 rounded-3xl">
         <span class="text-xl">Search for ingredients</span>
