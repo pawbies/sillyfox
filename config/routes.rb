@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :ingredients
-  resources :users
+  resources :users do
+    resources :favorites, only: %i[ create destroy ]
+  end
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

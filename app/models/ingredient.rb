@@ -1,4 +1,6 @@
 class Ingredient < ApplicationRecord
+  has_many :favorites
+
   validates :name, presence: true, uniqueness: true, length: { maximum: 100 }
   validates :description, length: { maximum: 1000 }
   validates :dosage, length: { maximum: 20 }

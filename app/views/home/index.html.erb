@@ -28,4 +28,17 @@
     <% end %>
   <% end %>
 
+  <% if authenticated? %>
+    <div class="mt-12 w-full grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+      <h3 class="text-xl text-center w-full col-span-2">Your favorite ingredients</h3>
+      <% Current.user.favorite_ingredients.each do |ingredient| %>
+        <div id="<%= dom_id ingredient %>" class="bg-gray-200 drop-shadow-xl flex flex-col items-center rounded-2xl px-1 py-2">
+          <h4 class="text-xl text-center"><%= ingredient.name %></h4>
+          <p>Dosage: <%= ingredient.dosage %></p>
+          <%= link_to "View", ingredient, target: "_top", class: "mt-2 w-28 h-12 bg-[#0088DD] hover:bg-[#0088FF] rounded-2xl text-2xl text-white flex justify-center items-center" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>
