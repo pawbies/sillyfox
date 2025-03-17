@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
   def create
     favorite = @user.favorites.new favorite_params
     if favorite.save
-      redirect_back fallback_location: root_path, notice: "Added to favorites"
+      redirect_back fallback_location: root_path
     else
       redirect_back fallback_location: root_path, alert: "Something went wrong"
     end
@@ -15,7 +15,7 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite.destroy!
 
-    redirect_back fallback_location: root_path, notice: "Removed from favorites"
+    redirect_back fallback_location: root_path
   end
 
   private
